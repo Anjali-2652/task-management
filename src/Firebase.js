@@ -1,30 +1,22 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-// import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+
+// Helper to safely read & trim Vite env vars
+const env = (key) => (import.meta.env[key] || '').trim();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAF2avmGUoEg0z3BYsajyfKuoDYjgQSHJw",
-  authDomain: "task-manager-effaa.firebaseapp.com",
-  projectId: "task-manager-effaa",
-  storageBucket: "task-manager-effaa.firebasestorage.app",
-  messagingSenderId: "969436585000",
-  appId: "1:969436585000:web:80b655ad4352fed78f291d",
-  measurementId: "G-QM5XDB1XFX",
+  apiKey: env('VITE_FIREBASE_API_KEY'),
+  authDomain: env('VITE_FIREBASE_AUTH_DOMAIN'),
+  projectId: env('VITE_FIREBASE_PROJECT_ID'),
+  storageBucket: env('VITE_FIREBASE_STORAGE_BUCKET'),
+  messagingSenderId: env('VITE_FIREBASE_MESSAGING_SENDER_ID'),
+  appId: env('VITE_FIREBASE_APP_ID'),
+  measurementId: env('VITE_FIREBASE_MEASUREMENT_ID') || undefined,
 };
 
-// Initialize Firebase
+// Initialize Firebase app & services
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-
-// initialize services
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// export to use in components
-export { auth, db };
+export const db = getFirestore(app);
+export const auth = getAuth(app);
