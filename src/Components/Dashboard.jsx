@@ -66,7 +66,7 @@ export const Dashboard = () => {
   if (loading) return <p className="text-center mt-10">Loading tasks...</p>;
 
   return (
-    <div className=" bg-amber-50  text-center mb-10 pt-[50px] mt-10">
+    <div className=" bg-amber-50  text-center pb-10 pt-[50px] mt-10">
       <h2 className="text-4xl  text-rose-800 font-bold text-center mb-6">
         Your Tasks
       </h2>
