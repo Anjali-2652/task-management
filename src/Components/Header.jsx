@@ -33,30 +33,50 @@ export const Header = () => {
         {/* Hamburger for mobile */}
         <div className="md:hidden flex items-center">
           <button onClick={() => setMenuOpen(!menuOpen)}>
-            {menuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+            {menuOpen ? (
+              <FaTimes className="text-2xl" />
+            ) : (
+              <FaBars className="text-2xl" />
+            )}
           </button>
         </div>
 
         {/* Menu */}
-        <ul className={`md:flex md:items-center md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-teal-900 md:bg-transparent transition-all duration-300 ${menuOpen ? "block" : "hidden"}`}>
+        <ul
+          className={`md:flex md:items-center md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-teal-900 md:bg-transparent transition-all duration-300 ${
+            menuOpen ? "block" : "hidden"
+          }`}
+        >
           <li>
-            <Link to="/" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+            <Link
+              to="/"
+              className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+            >
               <FaHome className="text-2xl mb-1" /> Home
             </Link>
           </li>
           <li>
-            <Link to="/about" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+            <Link
+              to="/about"
+              className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+            >
               <FaRegNewspaper className="text-2xl mb-1" /> About
             </Link>
           </li>
           <li>
-            <Link to="/create-task" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+            <Link
+              to="/create-task"
+              className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+            >
               <IoIosCreate className="text-2xl mb-1" /> Create Task
             </Link>
           </li>
           {user && (
             <li>
-              <Link to="/dashboard" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+              <Link
+                to="/dashboard"
+                className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+              >
                 <MdDashboard className="text-2xl mb-1" /> Dashboard
               </Link>
             </li>
@@ -64,19 +84,28 @@ export const Header = () => {
           {!user ? (
             <>
               <li>
-                <Link to="/login" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                <Link
+                  to="/login"
+                  className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+                >
                   <VscSignIn className="text-2xl mb-1" /> Login
                 </Link>
               </li>
               <li>
-                <Link to="/signup" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                <Link
+                  to="/signup"
+                  className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0"
+                >
                   <SiGnuprivacyguard className="text-2xl mb-1" /> Signup
                 </Link>
               </li>
             </>
           ) : (
-            <li>
-              <button onClick={handleLogout} className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+            <li className="flex justify-center">
+              <button
+                onClick={handleLogout}
+                className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0 w-full md:w-auto"
+              >
                 <PiSignOutBold className="text-2xl mb-1" /> Logout
               </button>
             </li>
