@@ -1,117 +1,88 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaBars, FaTimes } from "react-icons/fa";
 import { FaRegNewspaper } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
-import { MdOutlineLogin } from "react-icons/md";
-import { SiGnuprivacyguard } from "react-icons/si";
-import { MdDashboard } from "react-icons/md";
-import { PiSignOutBold } from "react-icons/pi";
-
 import { VscSignIn } from "react-icons/vsc";
+import { MdOutlineLogin, MdDashboard } from "react-icons/md";
+import { SiGnuprivacyguard } from "react-icons/si";
+import { PiSignOutBold } from "react-icons/pi";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 
 export const Header = () => {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false); // toggle menu
   const auth = getAuth();
 
-  // Track login/logout state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-
     return () => unsubscribe();
   }, [auth]);
 
   const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("User logged out");
-      })
-      .catch((error) => {
-        console.error("Logout Error:", error);
-      });
+    signOut(auth).catch((error) => console.error("Logout Error:", error));
   };
 
   return (
-  <nav className="bg-teal-900 px-20 z-10 py-3 shadow-md flex w-full fixed text-white justify-between items-center">
-  <h1 className="text-2xl font-bold">Task Manager</h1>
-  <ul className="flex items-center text-center gap-6">
-    <li>
-      <Link
-        to="/"
-        className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-      >
-        <FaHome className="text-2xl mb-1" />
-        Home
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/about"
-        className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-      >
-        <FaRegNewspaper className="text-2xl mb-1" />
-        About
-      </Link>
-    </li>
-    <li>
-      <Link
-        to="/create-task"
-        className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-      >
-        <IoIosCreate className="text-2xl mb-1" />
-        Create Task
-      </Link>
-    </li>
+    <nav className="bg-teal-900 text-white fixed w-full z-50 shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-20 flex justify-between items-center h-16">
+        <h1 className="text-2xl font-bold">Task Manager</h1>
 
-    {user && (
-      <li>
-        <Link
-          to="/dashboard"
-          className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-        >
-          <MdDashboard className="text-2xl mb-1" />
-          Dashboard
-        </Link>
-      </li>
-    )}
+        {/* Hamburger for mobile */}
+        <div className="md:hidden flex items-center">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes className="text-2xl" /> : <FaBars className="text-2xl" />}
+          </button>
+        </div>
 
-    {!user ? (
-      <>
-        <li>
-          <Link
-            to="/login"
-            className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-          >
-            <VscSignIn className="text-2xl mb-1" />
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/signup"
-            className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-          >
-            <SiGnuprivacyguard className="text-2xl mb-1" />
-            Signup
-          </Link>
-        </li>
-      </>
-    ) : (
-      <li>
-        <button
-          onClick={handleLogout}
-          className="hover:text-amber-500 hover:font-semibold flex flex-col items-center text-sm"
-        >
-          <PiSignOutBold className="text-2xl mb-1" />
-          Logout
-        </button>
-      </li>
-    )}
-  </ul>
-</nav>
-
+        {/* Menu */}
+        <ul className={`md:flex md:items-center md:gap-6 absolute md:static top-16 left-0 w-full md:w-auto bg-teal-900 md:bg-transparent transition-all duration-300 ${menuOpen ? "block" : "hidden"}`}>
+          <li>
+            <Link to="/" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+              <FaHome className="text-2xl mb-1" /> Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/about" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+              <FaRegNewspaper className="text-2xl mb-1" /> About
+            </Link>
+          </li>
+          <li>
+            <Link to="/create-task" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+              <IoIosCreate className="text-2xl mb-1" /> Create Task
+            </Link>
+          </li>
+          {user && (
+            <li>
+              <Link to="/dashboard" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                <MdDashboard className="text-2xl mb-1" /> Dashboard
+              </Link>
+            </li>
+          )}
+          {!user ? (
+            <>
+              <li>
+                <Link to="/login" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                  <VscSignIn className="text-2xl mb-1" /> Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/signup" className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                  <SiGnuprivacyguard className="text-2xl mb-1" /> Signup
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button onClick={handleLogout} className="hover:text-amber-500 flex flex-col items-center text-sm py-2 md:py-0">
+                <PiSignOutBold className="text-2xl mb-1" /> Logout
+              </button>
+            </li>
+          )}
+        </ul>
+      </div>
+    </nav>
   );
 };
