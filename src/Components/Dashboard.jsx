@@ -67,9 +67,7 @@ export const Dashboard = () => {
 
   return (
     <div className=" bg-amber-50  text-center mb-10 pt-[50px] mt-10">
-      <h2 className="text-4xl  text-rose-800 font-bold text-center mb-6">
-        Your Tasks
-      </h2>
+      <h2 className="text-4xl  text-rose-800 font-bold text-center mb-6">Your Tasks</h2>
 
       {/* Search & Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-6 justify-center">
@@ -109,61 +107,54 @@ export const Dashboard = () => {
         </p>
       ) : (
         <div className=" px-20">
-          <div
-            className="space-y-4 justify-center w-full  gap-x-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4
-  mt-10 rounded-2xl"
-          >
-            {filteredTasks.map((task) => (
-              <div
-                key={task.id}
-                className=" items-center p-4 bg-white shadow-xl rounded-2xl py-5 shadow-rose-300"
-              >
-                <div className="">
-                  <h3
-                    className={`font-semibold text-rose-500 text-xl mb-1 ${
-                      task.completed ? "line-through text-gray-400" : ""
-                    }`}
-                  >
-                    {task.title} ({task.priority})
-                  </h3>
-                  <p
-                    className={` text-sm ${
-                      task.completed ? "line-through text-gray-400" : ""
-                    }`}
-                  >
-                    {task.description}
-                  </p>
-                  <p className="text-sm mb-3 text-gray-500">
-                    Due: {task.dueDate}
-                  </p>
-                </div>
-                <div className="grid  grid-cols-1 space-y-2 space-x-2">
-                  <button
-                    onClick={() => handleToggleComplete(task)}
-                    className={`px-3 py-1 rounded text-white ${
-                      task.completed
-                        ? "bg-yellow-500 hover:bg-yellow-600"
-                        : "bg-green-500 hover:bg-green-700"
-                    }`}
-                  >
-                    {task.completed ? "Undo" : "Complete"}
-                  </button>
-                  <button
-                    onClick={() => handleDelete(task.id)}
-                    className="px-3 py-1 bg-red-500 hover:bg-red-700 text-white rounded"
-                  >
-                    Delete
-                  </button>
-                  <Link
-                    to={`/edit-task/${task.id}`}
-                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded"
-                  >
-                    Edit
-                  </Link>
-                </div>
+        <div className="space-y-4 justify-center w-full  gap-x-5 grid grid-cols-4  mt-10 rounded-2xl">
+          {filteredTasks.map((task) => (
+            <div
+              key={task.id}
+              className=" items-center p-4 bg-white shadow-xl rounded-2xl py-5 shadow-rose-300"
+            >
+              <div className="">
+                <h3
+                  className={`font-semibold text-rose-500 text-xl mb-1 ${
+                    task.completed ? "line-through text-gray-400" : ""
+                  }`}
+                >
+                  {task.title} ({task.priority})
+                </h3>
+                <p
+                  className= {` text-sm ${task.completed ? "line-through text-gray-400" : ""}`}
+                >
+                  {task.description}
+                </p>
+                <p className="text-sm mb-3 text-gray-500">Due: {task.dueDate}</p>
               </div>
-            ))}
-          </div>
+              <div className="grid  grid-cols-1 space-y-2 space-x-2">
+                <button
+                  onClick={() => handleToggleComplete(task)}
+                  className={`px-3 py-1 rounded text-white ${
+                    task.completed
+                      ? "bg-yellow-500 hover:bg-yellow-600"
+                      : "bg-green-500 hover:bg-green-700"
+                  }`}
+                >
+                  {task.completed ? "Undo" : "Complete"}
+                </button>
+                <button
+                  onClick={() => handleDelete(task.id)}
+                  className="px-3 py-1 bg-red-500 hover:bg-red-700 text-white rounded"
+                >
+                  Delete
+                </button>
+                <Link
+                  to={`/edit-task/${task.id}`}
+                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded"
+                >
+                  Edit
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
         </div>
       )}
     </div>
