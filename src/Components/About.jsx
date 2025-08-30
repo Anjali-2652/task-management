@@ -27,6 +27,10 @@ export const About = () => {
               Work together with your team and keep everyone on the same page.
             </p>
           </div>
+
+          <p className='italic text-center text-rose-500 mt-10'>
+            Some features are under development and will be available soon! So stay tuned.
+          </p>
         </div>
       </section>
   )
